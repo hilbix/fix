@@ -21,3 +21,8 @@ WTF why?
 
 - Because checkouts of https://github.com/hilbix/tino/tree/master/howto start to become too big
 
+License?
+
+- All files are free as in free beer, free speech and free baby.
+- Ever saw a Copyright on a baby?
+
