@@ -10,16 +10,15 @@
 #	set efm+=#%t#%f##%c#%m#
 
 exec "$@" 2> >(
-gawk -v ARG="$2" '
-#{ print match($0,"^    at [a-zA-Z0-9_.<>]+ \\(([^)]*):([0-9]+):([0-9]+)\\)",a) }
-match($0,"^    at [a-zA-Z0-9_.<>]+ \\(([^)]*):([0-9]+):([0-9]+)\\)",a)	{
-	if (a[1] ~ /^internal\/modules\//)
-	  print "#E#" ARG "#1#0#" last "#";
+gawk -v ARG="$(readlink -e -- "$2")" '
+match($0,"^    at ([^(]+) \\(([^)]*):([0-9]+):([0-9]+)\\)",a)	{
+	if (a[2] ~ /^internal\/modules\//)
+	  print "#E#" ARG "#1#0#{" a[1] "} " last "#";
 	else
-	  print "#E#" a[1] "#" a[2] "#" a[3] "#" last "#";
+	  print "#E#" a[2] "#" a[3] "#" a[4] "#{" a[1] "} " last "#";
 	next;
 	}
 # dequote # and : which might irritate vim
-{ sub(/^#/,"-- #"); gsub(/:[^ ]/, ": "); last=$0; print }
+{ sub(/^#/,"-- #"); last=gensub(/:([^ ])/, ": \\1", "g"); print last }
 ' >&2)
 
