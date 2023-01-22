@@ -2,7 +2,7 @@
 
 Various fixes and defaults
 
-- See also (my howto-rants)[https://github.com/hilbix/tino/tree/master/howto]
+- See also [my howto-rants](https://github.com/hilbix/tino/tree/master/howto)
 
 This here now bundles all my helpers without checking out all the babble.
 
@@ -19,7 +19,7 @@ This here now bundles all my helpers without checking out all the babble.
 
 WTF why?
 
-- Because checkouts of https://github.com/hilbix/tino/tree/master/howto start to become too big
+- Because checkouts of <https://github.com/hilbix/tino/tree/master/howto> start to become too big
 
 License?
 
