@@ -1,6 +1,6 @@
-":" Copy+paste the next 2 lines or do: bash THIS_FILE_HERE
-"git" clone https://github.com/hilbix/fix.git "$HOME/git/fix/"
-"ln" --symbolic --backup=t --relative "$HOME/git/fix/home/vimrc" "$HOME/.vimrc"
+":" Copy+paste the next 2 lines or do: bash ./THIS_FILE_HERE
+"git" clone https://github.com/hilbix/fix.git "$HOME/git/tino-fix/"
+"ln" --symbolic --backup=t --relative "$HOME/git/tino-fix/home/vimrc" "$HOME/.vimrc"
 "return"; exit
 
 " set nomodelineexpr		" prevent CVE-2019-12735 with modeline (>=vim 8.1.x)
