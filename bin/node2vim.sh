@@ -20,8 +20,8 @@ do
 	ARG="$(readlink -e -- "$a")" && break
 done
 
-exec "$@" 2> >(
-gawk -v ARG="$ARG" -F: '
+"$@" 2> >(
+stdbuf -i0 -o0 gawk -v ARG="$ARG" -F: '
 function show(a,b,c,d)
 {
   if (a ~ /^internal\/modules\//)
@@ -39,4 +39,10 @@ match($0,"^    at ([^()]*):([0-9]+):([0-9]+)",a)		{ show(a[1], a[2], a[3], last)
 # dequote # and : which might irritate vim
 { sub(/^#/,"-- #"); last=gensub(/:([^ ])/, ": \\1", "g"); print last }
 ' >&2)
+
+ret=$?
+#[ 0 = "$ret" ] && printf '#A#%q###exit code %d#\n' "$ARG" "$ret" || printf '#E#%q###exit code %d#\n' "$ARG" "$ret"
+# Only jump to source on error returned
+[ 0 = "$ret" ] || printf '#E#%q###exit code %d#\n' "$ARG" "$ret"
+exit $ret
 
