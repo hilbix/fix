@@ -30,10 +30,10 @@ function show(a,b,c,d)
     print "#E#" a "#" b "#" c "#" d "#";
 }
 #BEGIN	{ print "ARG " ARG }
-$1==ARG && $2 ~ /^[0-9]+/					{ first=$0; linenr=$2; trig=1; next }
 trig==1								{ line=$0; trig=2; next }
 trig==2 && match($0,"^( *)\\^$",a)				{ show(ARG, linenr, length(a[1]), line); trig=0; next }
 trig								{ print first; print line; trig=0 }
+NF==2 && $2 ~ /^[0-9]+/						{ first=$0; linenr=$2; trig=1; next }
 match($0,"^    at ([^(]+) \\(([^)]*):([0-9]+):([0-9]+)\\)",a)	{ show(a[2], a[3], a[4], "{" a[1] "} " last); next }
 match($0,"^    at ([^()]*):([0-9]+):([0-9]+)",a)		{ show(a[1], a[2], a[3], last); next }
 # dequote # and : which might irritate vim
