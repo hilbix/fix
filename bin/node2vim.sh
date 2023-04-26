@@ -30,8 +30,9 @@ function show(a,b,c,d)
     print "#E#" a "#" b "#" c "#" d "#";
 }
 #BEGIN	{ print "ARG " ARG }
+#{ print "trig=" trig " line=\"" line "\"" }
 trig==1								{ line=$0; trig=2; next }
-trig==2 && match($0,"^( *)\\^$",a)				{ show(file, linenr, length(a[1])+1, line); trig=0; next }
+trig==2 && match($0,"^( *)\\^+$",a)				{ show(file, linenr, length(a[1])+1, line); trig=0; next }
 trig								{ print first; print line; trig=0 }
 NF==2 && $2 ~ /^[0-9]+/						{ first=$0; file=$1; linenr=$2; trig=1; next }
 match($0,"^    at ([^(]+) \\(([^)]*):([0-9]+):([0-9]+)\\)",a)	{ show(a[2], a[3], a[4], "{" a[1] "} " last); next }
