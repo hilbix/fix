@@ -98,3 +98,79 @@ vmap <expr> <f28> XTermPasteBegin("c")
 cmap <f28> <nop>
 cmap <f29> <nop>
 
+" Things I always forget about in VIM:
+"	:help cmd	explain cmd
+"	G~		change case.  ~ can be used with visual, too
+"	cc		
+"	C-o	C-i	Jump to older / newer positions across files
+"
+"	:marks		list marks, see: :help mark-motions
+"	mx		set mark (M is make, C-M is CR, M-M is make clean!)
+"	`x		jump to mark within same buffer.  Also: d`x c`x y`x
+"	`X		jump to mark within file where mark was set
+"	`0	`9	0=jump to last edited file, 1=second last, and so on
+"	`.	`"	last change / last exit
+"	`[	`]	begin/end of previous yank
+"	`<	`>	begin/end of visual
+"	'x		same as ` but in line mode
+"	``	''	Jump to last position
+"	['	]'	jump to prev / next mark (also with (' )' {' }')
+"	:delmarks!	delete all lowercase marks
+"	:delm xy	delete marks x and y
+"	:delm a-x	delete marks a to x
+"
+"	Qx		start macro until next Q
+"	@x		play macro
+"	@@		play last macro
+"
+"	:set number	show line numbers
+"
+" vimdiff	commands with multiple panes / run a diff side by side
+"	do		get other changes (full block!)
+"	dp		put changes to other
+"	[c	]c	prev / next change
+"
+"	:diffu		update vimdiff after (manual/extern) changes
+"	:difft file	start vimdiff mode from within vim
+"	:diffo		end vimdiff mode
+"
+"	C-wC-w	C-ww	switch buffer
+"	C-wC-x	C-wx	swap buffer positions
+"	C-wC-q	C-wq	close current buffer (quit if last)
+"
+"	:ls		list all buffers
+"	:sp [file]	open split (horizontal split bar: top-down)
+"	:vs [file]	open split (vertical split bar:   left|right)
+"	:bw		wipe (forget) buffer (including marks)
+"	:bn		next buffer
+"	:bp		prev buffer
+"
+" Modelines:
+"	# vim: setting:setting:setting
+"	# vim: set setting setting setting : comment
+"
+"	vim: ft=bash
+"	vim: ft=bash : comment
+"
+" Things my fingers type automatically (but might be important to others):
+"	ESC		exit back to anything, but do not exit vim
+"	.		repeat last short command (like insert etc.)
+"	dd	dw	delete line / delete word
+"	C	cw	Change line behind the cursor / change word
+"	rx	R	replace character / replace mode
+"	i	I	insert / insert at the start of line
+"	A	a	append to end of line / append after cursor
+"	x	X	remove character under cursor / before cursor
+"	u	C-R	undo / redo
+"	V		(visual) select lines
+"	v		(visual) select text
+"	C-v		(visual) select block
+"	gg	:0	first line
+"	G	:$	last line
+"	:q		close current buffer if unchanged
+"	:wq	ZZ	save current buffer and close it
+"	:q!	ZQ	force quit discarding changes
+"
+" The last line protects against:
+" "I use vim for almost two decades now, because I do not know how to exit it"
+
