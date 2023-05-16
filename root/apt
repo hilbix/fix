@@ -76,8 +76,9 @@ ERRS=''
 # https://askubuntu.com/q/53364/164798
 fix-dkms()
 {
-KERN=()
-for a in *; do KERN+=("$a"); done
+KERN=(`dpkg -S '/boot/vmlinu*' | sed -n 's!^.*:.*vmlinu[^-]*-!!p'`)
+
+printf 'KERN: %q\n' "${KERN[@]}"
 
 cd /
 
@@ -85,16 +86,22 @@ while read -ru6 m v
 do
 	for k in "${KERN[@]}"
 	do
+		case "$m/$k" in
+		(zfs/*-pve)	[ -f "/lib/modules/$k/zfs/zfs.ko" ] && continue;;	# dkms fails on proxmox included zfs-on-linux
+		esac
+
 		printf '\n##### %q %q %q #####\n\n' "$m" "$v" "$k"
 		for x in 1 2
 		do
 			if	OUT="$(dkms -m "$m" -v "$v" -k "$k" "$@" 2>&1)"
+				RC=$?
+				[ 0 = "$RC" ]
 			then
 				printf -vS 'DKMS:OK %q %q %q\n' "$m" "$v" "$k"
 				NOTES="$NOTES$S"
 				break
 			fi
-			printf -vS 'DKMS:KO=%d %q %q %q\n' "$?" "$m" "$v" "$k"
+			printf -vS 'DKMS:KO=%d %q %q %q\n' "$RC" "$m" "$v" "$k"
 			case "$x:$OUT" in
 			(1:*'Please install'*' linux-headers-'*)
 				PACK="${OUT#* linux-headers-}"
@@ -139,7 +146,7 @@ clean-snaps()
 # Cleaning only a single old revision per run should be enough
 clean-snaps /usr/bin/snap
 
-cd /var/lib/initramfs-tools && fix-dkms install
+fix-dkms install
 
 if	[ -x /usr/bin/check-support-status ]
 then	/usr/bin/check-support-status
