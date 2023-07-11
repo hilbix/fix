@@ -77,8 +77,17 @@ ERRS=''
 fix-dkms()
 {
 KERN=(`dpkg -S '/boot/vmlinu*' | sed -n 's!^.*:.*vmlinu[^-]*-!!p'`)
+LOAD="$(uname -r)"
 
-printf 'KERN: %q\n' "${KERN[@]}"
+for a in "${KERN[@]}"
+do
+	if [ ".$LOAD" = ".$a" ]
+	then
+		printf 'KERN: %q (loaded)\n' "$a"
+	else
+		printf 'KERN: %q' "$a"
+	fi
+done
 
 cd /
 
