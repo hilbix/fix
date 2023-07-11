@@ -85,7 +85,7 @@ do
 	then
 		printf 'KERN: %q (loaded)\n' "$a"
 	else
-		printf 'KERN: %q' "$a"
+		printf 'KERN: %q\n' "$a"
 	fi
 done
 
