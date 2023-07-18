@@ -124,7 +124,7 @@ do
 			break
 		done
 	done
-done 6< <(LC_ALL=C.UTF-8 dkms status | while read -r n v r; do echo "${n%,}" "${v%[:,]}"; done | sort -u)
+done 6< <(LC_ALL=C.UTF-8 dkms status | tr / ' ' | while read -r n v r; do echo "${n%,}" "${v%[:,]}"; done | sort -u)
 }
 
 # Once upon a time I was wondering, where all the precious space in /var/lib/snapd went.
