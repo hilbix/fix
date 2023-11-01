@@ -64,12 +64,14 @@ if has("autocmd")
   augroup vimrc
     autocmd!
     " Remember last position
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    autocmd BufReadPost *	if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
     " !WARNING!  Following only works for the standard TAB setting of 8
     " :P is just easy to type, adjust to the TAB setting
-    autocmd FileType *      command! P %s#^\(\(        \)*\)\(\t\+\)#\=(submatch(1).repeat('        ',len(submatch(3))))
+    autocmd FileType *		command! P %s#^\(\(        \)*\)\(\t\+\)#\=(submatch(1).repeat('        ',len(submatch(3))))
     " this must be adjusted to the TAB stop setting of FT python, it's 8 at my side
-    autocmd FileType python command! P %s#^\(\t*\)\(\(        \)\+\)#\=(submatch(1).repeat('	',len(submatch(2))/8))
+    autocmd FileType python	command! P %s#^\(\t*\)\(\(        \)\+\)#\=(submatch(1).repeat('	',len(submatch(2))/8))
+    " keep shell type separate
+    autocmd FileType bash,sh	command! P %s#^\(\t*\)\(\(        \)\+\)#\=(submatch(1).repeat('	',len(submatch(2))/8))
   augroup END
 else
   command P %s/^\(\(        \)*\)\(\t\+\)/\=(submatch(1).repeat('        ',len(submatch(3))))
