@@ -1,0 +1,19 @@
+#!/usr/bin/awk -f
+# vim: ft=awk
+
+BEGIN	{ if (SEP==0 && SEP=="") SEP=" ! " }
+FNR==1	{ W[FILENO++]=MAX+length(SEP); MAX=0 }
+        { C[FILENO,FNR] = $0; if (length($0)>MAX) MAX=length($0); if (FNR>TOT) TOT=FNR }
+END	{ for (x=0; ++x<=TOT; )
+            {
+              for (y=0; ++y<=FILENO; )
+                {
+                  s = C[y,x];
+                  i = W[y] - length(s);
+                  printf("%s", s);
+                  if (i>0)
+                    printf("%*s", i, SEP);
+                }
+              printf("\n");
+        }   }
+
