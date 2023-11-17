@@ -6,7 +6,7 @@
 {
 cat <<EOF
 //usr/bin/apt-config dump | sed -n '/::PDiffs/s/"true"/"false"/p' >> /etc/apt/apt.conf.d/99tino; [ 99tino = "${0##*/}" ] && exit
-Acquire::Pdiffs "false";
+Acquire::PDiffs "false";
 EOF
 /usr/bin/apt-config dump | sed -n '/::PDiffs/s/"true"/"false"/p'
 } | fgrep -vxf /etc/apt/apt.conf.d/99tino >> /etc/apt/apt.conf.d/99tino
