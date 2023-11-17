@@ -1,10 +1,15 @@
 #!/bin/bash
-# https://raw.githubusercontent.com/hilbix/tino/master/howto/.apt
+# https://github.com/hilbix/fix/blob/master/root/apt
 
-fgrep -vxf /etc/apt/apt.conf.d/99tino >> /etc/apt/apt.conf.d/99tino <<'EOF'
-Acquire::PDiffs "false";
+# Disable PDiffs
+# https://github.com/hilbix/tino/blob/master/howto/debian/apt.md#apt-maintainers-enable-pdiffs-against-your-will
+{
+cat <<EOF
+//usr/bin/apt-config dump | sed -n '/::PDiffs/s/"true"/"false"/p' >> /etc/apt/apt.conf.d/99tino; [ 99tino = "${0##*/}" ] && exit
+Acquire::Pdiffs "false";
 EOF
-
+/usr/bin/apt-config dump | sed -n '/::PDiffs/s/"true"/"false"/p'
+} | fgrep -vxf /etc/apt/apt.conf.d/99tino >> /etc/apt/apt.conf.d/99tino
 rm -f /var/lib/apt/lists/partial/*
 
 DISTS() { find /etc -name '*.*-dist'; }
