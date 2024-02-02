@@ -55,6 +55,13 @@ If you then press `M` in `vim` this runs everything and automatically jumps to t
 - `python3vim.sh ./python-script.py args..` to debug `Python3` scripts
   - `watch python3vim.sh` to see the full debug output of the last invocation
 
+`autostart/` contains some of my autostart scripts.
+
+- Read the introductory comment on the scripts for what they are.
+- They are installed or activated manually with something like  
+  `ln -s --relative autostart/SCRIPT.sh ~/autostart/`
+- This assumes you do autostarts like I do, see:  
+   <https://github.com/hilbix/ptybuffer/blob/master/script/autostart.sh>
 
 
 ## FAQ
