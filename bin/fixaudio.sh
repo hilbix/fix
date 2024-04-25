@@ -12,6 +12,10 @@
 # Before Ubuntu 18.04.1 this also enabled beeping in terminal.
 # But something changed which I do not know, hence beep stays mute.
 
+# https://askubuntu.com/a/1404159/164798
+sudo touch /usr/share/pipewire/media-session.d/with-pulseaudio
+systemctl --user restart pipewire-session-manager
+
 mv -Tf --backup=t "$HOME/.config/pulse" "$HOME/.config/pulse.old"
 
 # Everything around Pulseaudio loves to hang or crash at my side various mystic ways.  YMMV
