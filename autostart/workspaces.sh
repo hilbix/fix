@@ -18,13 +18,23 @@ x="${x##*[^0-9]}"
 x="${x:-9}"		# 9 gives 10 workspaces by default, override with name
 eval "all=({0..$x})"
 
-export DISPLAY=:0
 printf '\n%(%Y%m%d-%H%M%S)T %s\n' -1 start
 t=1
 while	! read -t$t a || [ x == "$a" ]
 do
 	t=300		# refresh all 5 minutes or so in case some xeyes gets killed
+
+	xset q >/dev/null ||
+	for a in /tmp/.X11-unix/X*
+	do
+		[ -w "$a" ] || continue
+		export DISPLAY=":${a#*/X}"
+		xset q >/dev/null || continue
+		printf '%(%Y%m%d-%H%M%S)T DISPLAY=%q\n' -1 "$DISPLAY"
+		break
+	done
 	printf . || break
+
 	for a in "${all[@]}"
 	do
 		while	! wmctrl -F -r XEYES-DESK$a -t $a
