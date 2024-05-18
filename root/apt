@@ -4,7 +4,7 @@
 # Disable PDiffs
 # https://github.com/hilbix/tino/blob/master/howto/debian/apt.md#apt-maintainers-enable-pdiffs-against-your-will
 {
-cat <<EOF
+cat <<'EOF'
 //usr/bin/apt-config dump | sed -n '/::PDiffs/s/"true"/"false"/p' >> /etc/apt/apt.conf.d/99tino; [ 99tino = "${0##*/}" ] && exit
 Acquire::PDiffs "false";
 EOF
