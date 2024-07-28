@@ -155,10 +155,6 @@ let g:secure_modelines_allowed_items = [
 "	:difft file	start vimdiff mode from within vim
 "	:diffo		end vimdiff mode
 "
-"	C-wC-w	C-ww	switch buffer
-"	C-wC-x	C-wx	swap buffer positions
-"	C-wC-q	C-wq	close current buffer (quit if last)
-"
 "	:ls		list all buffers
 "	:sp [file]	open split (horizontal split bar: top-down)
 "	:vs [file]	open split (vertical split bar:   left|right)
@@ -191,6 +187,10 @@ let g:secure_modelines_allowed_items = [
 "	:q		close current buffer if unchanged
 "	:wq	ZZ	save current buffer and close it
 "	:q!	ZQ	force quit discarding changes
+"	C-wC-w	C-ww	switch buffer
+"	C-wC-x	C-wx	swap buffer positions
+"	C-wC-q	C-wq	close current buffer (quit if last)
+"	C-wC-o	C-wo	close other buffers
 "
 " The last line protects against:
 " "I use vim for almost two decades now, because I do not know how to exit it"
