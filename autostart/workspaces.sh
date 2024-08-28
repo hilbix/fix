@@ -24,7 +24,7 @@ eval "all=({0..$x})"
 
 printf '\n%(%Y%m%d-%H%M%S)T %s\n' -1 start || exit
 t=1
-while	! read -t$t a || [ x == "$a" ]
+while	! read -t$t a || [ -n "$a" ]
 do
 	t=300		# refresh all 5 minutes or so in case some xeyes gets killed
 
@@ -56,7 +56,7 @@ do
 	done
 	wmctrl -l | awk '$4 ~ /^XEYES-DESK/ { if ("XEYES-DESK" $2 != $4) exit(1) }' || t=.1
 
-	printf %d "${#MISS[@]}" || exit
+	printf '%d ' "${#MISS[@]}" || exit
 
 	[ -z "$MISS" ] && continue		# nothing to do
 
