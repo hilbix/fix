@@ -51,8 +51,8 @@ do
 	for a in "${all[@]}"
 	do
 		wmctrl -F -r XEYES-DESK$a -b add,skip_taskbar,below &&
-		wmctrl -F -r XEYES-DESK$a -t $a || MISS+=($a)
-		sleep .1
+		wmctrl -F -r XEYES-DESK$a -t $a &&
+		sleep .1 || MISS+=($a)
 	done
 	wmctrl -l | awk '$4 ~ /^XEYES-DESK/ { if ("XEYES-DESK" $2 != $4) exit(1) }' || t=.1
 
