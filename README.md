@@ -7,6 +7,14 @@ Various fixes and defaults
 This here now bundles all my helpers without checking out all the babble.
 
 
+## Warning!
+
+As `root` this changes services to something which I think are reasonable:
+
+- Reconfigured SystemD services are not restarted, for this do a `make root`
+  - [Display the journal to `tty12`](https://bbs.archlinux.org/viewtopic.php?pid=1537385#p1537385)
+
+
 ## Usage
 
 	cd
@@ -14,6 +22,7 @@ This here now bundles all my helpers without checking out all the babble.
 	git clone https://github.com/hilbix/fix.git
 	cd fix
 	make
+
 
 
 ## Short description
