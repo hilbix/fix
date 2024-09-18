@@ -33,7 +33,7 @@ do
 	(*[^0-9]*)		OOPS not number: "$a" "$b" "$c";;
 	esac
 
-	while	[ "$a" -lt "$b" ]
+	while	[ "$a" -le "$b" ]
 	do
 		let c=a+s-1
 		[ "$b" -ge "$c" ] || c="$b"
