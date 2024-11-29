@@ -1,5 +1,5 @@
 #!/bin/bash
-# https://github.com/hilbix/fix/blob/master/root/apt
+# https://github.com/hilbix/fix/blob/master/root/root/.apt
 
 # Disable PDiffs
 # https://github.com/hilbix/tino/blob/master/howto/debian/apt.md#apt-maintainers-enable-pdiffs-against-your-will
