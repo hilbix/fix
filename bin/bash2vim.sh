@@ -23,6 +23,7 @@ awk '
 		printf("#E#%s#%d#0#%s#\n", n, l, $0);
 		next;
 		}
+/.*:.*:.*:.*/	{ gsub(/:/,"\\:") }
 		{ print }
 ' >&2
 echo -n ''
