@@ -11,6 +11,7 @@ export TERM=xterm-256color || export TERM=xterm || export TERM=linux || export T
 while	stamp && read -ra cmd && stamp "$cmd";
 do
 	case "${#cmd[@]} ${cmd[0]}" in
+	('1 help')	sed -n "s/^\\t([^ ]* \\([^']*\\)').*$/\\1/p" "$0";;
 	('1 new')	exec "$0";;
 	([2-9]' ping')	printf -vT '%(%s)T' -2 && stamp PONG "$T" "${cmd[@]:1}";;
 	('1 up')	x /root/.apt && x /root/.apt;;
