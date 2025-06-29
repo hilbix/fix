@@ -29,7 +29,7 @@ do
 	t=300		# refresh all 5 minutes or so in case some xeyes gets killed
 
 	# locate the current X11 display
-	xset q >/dev/null ||
+	timeout 3 xset q >/dev/null ||
 	{
 	t=15		# retry desktop to appear in 15s
 	[ -z "$DISPLAY" ] || printf '\n%(%Y%m%d-%H%M%S)T DISPLAY %q vanished\n' -1 "$DISPLAY" || exit
@@ -38,7 +38,7 @@ do
 	do
 		[ -w "$a" ] || continue
 		export DISPLAY=":${a#*/X}"
-		xset q >/dev/null || continue
+		timeout 3 xset q >/dev/null || continue
 		printf '%(%Y%m%d-%H%M%S)T DISPLAY=%q\n' -1 "$DISPLAY" || exit
 		t=.1	# found display
 		break
