@@ -1,0 +1,11 @@
+#
+## sed -n 's/# //p' /etc/apt/sources.list.d/gvisor.list | bash
+# git clone --sparse --filter=blob:none https://github.com/google/gvisor.git &&
+# cd gvisor &&
+# git reset b6baa377d85db823c9d1c15658e843d6683835a3 &&
+# git sparse-checkout add website &&
+# git cat-file -p 8946884a71379fe6ddce4d5d38bb1cf163337400 | cmp - website/archive.key &&
+# sudo gpg --dearmor -o /etc/apt/keyrings/gvisor-archive-keyring.gpg < website/archive.key
+
+deb [arch=amd64 signed-by=/etc/apt/keyrings/gvisor-archive-keyring.gpg] http://storage.googleapis.com/gvisor/releases release main
+
