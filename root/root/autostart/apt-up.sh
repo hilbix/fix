@@ -7,6 +7,7 @@ x() { stamp "$@" && "$@"; }
 export LC_ALL=C.UTF-8 || export LC_ALL=C;
 export LINES=40 COLUMNS=132;
 export TERM=xterm-256color || export TERM=xterm || export TERM=linux || export TERM=vt100;
+export DEBIAN_FRONTEND=readline
 
 while	stamp && read -ra cmd && stamp "$cmd";
 do
