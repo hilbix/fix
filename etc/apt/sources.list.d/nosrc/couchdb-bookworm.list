@@ -1,0 +1,3 @@
+
+  deb [signed-by=/etc/apt/keyrings/apache.gpg] http://apache.jfrog.io/artifactory/couchdb-deb/		bookworm	main
+
