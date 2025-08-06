@@ -1,0 +1,3 @@
+[submodule "more/haproxy-lua-cors"]
+	path = more/haproxy-lua-cors
+	url = https://github.com/haproxytech/haproxy-lua-cors.git
