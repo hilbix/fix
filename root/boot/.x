@@ -1,15 +1,21 @@
 #!/bin/bash
 #
+# vim: ft=bash
+#
 # bz does pack slightly better (3%) than gz and runs a bit slower
 # xz does pack better (15%) but is far too slow
 
-uname -a
+uname -a;
 
-select a in vmlinuz-*
+cd /boot || exit;
+
+select a in vmlinuz-*;
 do
-	b="${a#vmlinuz-}"
-	tar cvfz "$b.tmp" -- "/lib/modules/$b/" grub efi .x *-"$b"*
-	sync "$b.tmp"
-	mv -v --backup=t "$b.tmp" "$b.tgz"
+	b="${a#vmlinuz-}";
+	t="${1:-.}/$b";
+	tar cvfz "$t.tmp" -- "/lib/modules/$b/" /boot/grub/ /boot/efi/ /boot/.x /boot/*-"$b"* &&
+	sync "$t.tmp" &&
+	tar Cdfz / "$t.tgz" &&
+	mv -v --backup=t "$t.tmp" "$t.tgz";
 done
 
