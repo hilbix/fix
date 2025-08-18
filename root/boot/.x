@@ -15,7 +15,7 @@ do
 	t="${1:-.}/$b";
 	tar cvfz "$t.tmp" -- "/lib/modules/$b/" /boot/grub/ /boot/efi/ /boot/.x /boot/*-"$b"* &&
 	sync "$t.tmp" &&
-	tar Cdfz / "$t.tgz" &&
+	tar Cdfz / "$t.tmp" &&
 	mv -v --backup=t "$t.tmp" "$t.tgz";
 done
 
