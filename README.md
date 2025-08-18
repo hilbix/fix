@@ -24,7 +24,6 @@ As `root` this changes services to something which I think are reasonable:
 	make
 
 
-
 ## Short description
 
 `make` links (overwrites, with backup) following files in your `$HOME` with my defaults:
@@ -36,17 +35,30 @@ As `root` this changes services to something which I think are reasonable:
   - Have a look into the file to see all sequences
 - `.vimrc` which enables various things
   - look into it, it is commented accordingly
+
+When `root` it installs some helpers in `/root/`:
+
+> **Do not use `sudo make` nor `sudo make root`!**
+> There is a halfhearted catch to prevent this, but this check is far from being perfectly safe.
+
+- 11 consoles and syslog goes to `tty12`
+- Some files are updated which usually do not affect anything, except you use them:
+  - see `DOC.md`
+  - Also some files are installed into `/root/autostart/`, see the comments in the scripts
 - `.apt` if you are `root`
-  - `./.apt` (in directory `/root`) is my way to upgrade my systems
+  - `/root/.apt` is my way to upgrade my systems
+  - works as `suid apt-up`, too, from unprivileged users (in case you use my `suid` tool)
   - It automatically disables PDiffs.  Even those the maintainers try to enforce against your will.
-  - It does a (re)build of DKMS for all installed kernels
+  - It does a (re)build of DKMS for all installed kernels (except for ProxMox, as ProxMox provides all modules out of the box)
   - It also removes all no more needed previous versions of SNAPs to free up precious space in `/var`
-  - It does not update SNAPs, though, because SNAPs cannot be cached.  I have to manually tear down firewalls first to update SNAPs.
+  - It is not able to update SNAPs, though, because SNAPs cannot be cached properly.  (I have to manually tear down firewalls first to update SNAPs.)
   - To see which firewall rules are needed for SNAPs, have a look at the ever changing https://snapcraft.io/docs/network-requirements
   - Also note that firewall holes need a static set of IPs of course.  Dynamic things like domains are forbidden in secure contexts.
+  - But `SNAP` requires dynamic firewall rules.  Hence `SNAP` is perfectly designed to **support supply chain attacks!**  Hackers (probably) like that very much!
 
 Put `$HOME/bin` into your path (usually this is already the case) to get this commands:
 
+- Just look into the scripts for more help
 - `fixaudio.sh` kills and reloads pulseaudio.
   - When the audio starts to sound crappy at my side (which usually happens after switching on monitors) this fixes the problem.
   - It also tries to restore the previous output device profile, however this is very experimental
