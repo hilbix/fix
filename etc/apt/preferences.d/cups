@@ -1,0 +1,17 @@
+
+Package: cups
+Pin: release *
+Pin-Priority: -1
+
+Package: cups-client
+Pin: release *
+Pin-Priority: -1
+
+Package: cups-common
+Pin: release *
+Pin-Priority: -1
+
+Package: cups-pk-helper
+Pin: release *
+Pin-Priority: -1
+
