@@ -1,0 +1,5 @@
+
+Package: chromium
+Pin: version 139.*
+Pin-Priority: 999
+
