@@ -3,3 +3,11 @@ Package: chromium
 Pin: version 139.*
 Pin-Priority: 999
 
+Package: chromium-common
+Pin: version 139.*
+Pin-Priority: 999
+
+Package: chromium-sandbox
+Pin: version 139.*
+Pin-Priority: 999
+
