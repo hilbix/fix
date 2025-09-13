@@ -23,6 +23,7 @@ echo
 
 p=()
 IFS=$'\n' read -rd '' -a p < <(apt-get -s autoremove | sed -n 's/^Remv \([^ ]*\) \[.*$/\1/p')
+[ 0 = "${#p[@]}" ] && IFS=$'\n' read -rd '' -a p < <(dpkg --get-selections | awk '$2 == "deinstall" { print $1 }');
 [ 0 = "${#p[@]}" ] || apt-get purge "${p[@]}"
 
 
