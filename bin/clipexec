@@ -1,0 +1,29 @@
+#!/bin/bash
+
+[ 0 = $# ] && set -- catter
+
+catter()
+{
+  printf '%q\n' "$@" || exit
+}
+
+show='|/-\'
+cnt=0
+draw=0
+
+last=
+while   ! keypressed 500
+do
+	let draw++
+	printf '\r%q%d%c' "$ret" "$cnt" "${show:$[draw%4]:1}" >&2
+	get="$(timeout 10 xclip -out 2>&1)"
+	ok=$?
+	[ ".$get" = ".$last" ] && continue
+	last="$get"
+	[ 0 = $ok ] || { printf 'ERR %q\n' "$get" >&2; continue; }
+
+	let cnt++
+	"$@" "$get"
+	ret=$?
+done
+
