@@ -85,16 +85,6 @@ fix-dkms()
 KERN=(`dpkg -S '/boot/vmlinu*' | sed -n 's!^.*:.*vmlinu[^-]*-!!p'`)
 LOAD="$(uname -r)"
 
-for a in "${KERN[@]}"
-do
-	if [ ".$LOAD" = ".$a" ]
-	then
-		printf 'KERN: %q (loaded)\n' "$a"
-	else
-		printf 'KERN: %q\n' "$a"
-	fi
-done
-
 cd /
 
 while read -ru6 m v
@@ -189,6 +179,16 @@ echo
 
 # And: find still present dist-data
 DISTS
+
+for a in "${KERN[@]}"
+do
+	if [ ".$LOAD" = ".$a" ]
+	then
+		printf 'KERN: %q (loaded)\n' "$a"
+	else
+		printf 'KERN: %q\n' "$a"
+	fi
+done
 
 echo "$ERRS"
 
