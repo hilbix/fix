@@ -1,11 +1,10 @@
 #!/bin/bash
 #
 # pvmover.sh SRC DEST extend[-extend[/size]] extend[-extend[/size]]..
+#	extend is from the source drive.  /size defaults to 1000
 #
 # After 40 hours at 99% I used pvmove --abort
 # and all the 99% were gone, nothing moved.
-#
-# The extends are from the source drive.  /size defaults to 1000
 #
 # WTF?!?!
 #
