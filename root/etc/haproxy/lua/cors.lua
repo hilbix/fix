@@ -1,1 +1,1 @@
-../../../../more/haproxy-lua-cors/lib/cors.lua
+../../../../others/haproxy-lua-cors/lib/cors.lua
