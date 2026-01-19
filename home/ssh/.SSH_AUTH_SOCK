@@ -1,0 +1,40 @@
+# source <(~/.ssh/.SSH_AUTH_SOCK)
+
+check()
+{
+  timeout 2 sh -c 'ssh-add -l >/dev/null'
+
+  case "$?" in
+  (0|1)		return 0;
+  esac
+  false
+}
+
+authsock()
+{
+  mkdir -pm 700 "$HOME/.ssh/sock/old" || return;
+
+  case "$SSH_AUTH_SOCK" in
+  ("$HOME/.ssh/sock"/*)	;;
+  (*)	[ -e "$SSH_AUTH_SOCK" ] && 
+        {
+          SSH_AUTH_SOCK_ORIG="$SSH_AUTH_SOCK";
+          ln -vs "$SSH_AUTH_SOCK" "$HOME/.ssh/sock/old/$(printf '%(%Y%m%d-%H%M%S)T.%d.sock' -1 $$)" || return;
+        }
+        ;;
+  esac;
+
+  SSH_AUTH_SOCK="$HOME/.ssh/sock/.auth";
+  check && return;
+
+  # find possible previous agent connections
+  for a in "$HOME"/.ssh/sock/old/*;
+  do
+    SSH_AUTH_SOCK="$a" check && rm -vf "$SSH_AUTH_SOCK" && ln -fs "old/${a##*/}" "$SSH_AUTH_SOCK" && return;
+    rm -vf "$a";
+  done;
+  false;
+}
+
+authsock printf 'export SSH_AUTH_SOCK=%q; SSH_AUTH_SOCK_ORIG=%q;\n' "$SSH_AUTH_SOCK" "$SSH_AUTH_SOCK_ORIG" || echo /bin/false
+
