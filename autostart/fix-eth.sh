@@ -37,7 +37,7 @@ echo on > "$BUS/power/control" || printf "\n!WARNING! %q not found\n" "$BUS"
 
 while	printf '%(%Y%m%d-%H%M%S)T %q %s ' -1 "$DEV" "$IPS"
 do
-	while	read -t20 && exit 2
+	while	read -t20 && printf '%(%Y%m%d-%H%M%S)T EOF' && exit 2
 		fping -qx1 $IPS >/dev/null
 	do
 		printf . || exit
@@ -57,7 +57,6 @@ do
 	ifup $DEV
 	sleep 1
 	ethtool -r $DEV
-	sleep 1
 	ethtool $DEV
 	set +x
 
@@ -67,5 +66,8 @@ do
 		sleep 1
 		ifup "$a"
 	done
+
+	sleep 1
+	ethtool $DEV
 done
 
