@@ -98,7 +98,7 @@ do
 		printf '\n##### %q %q %q #####\n\n' "$m" "$v" "$k"
 		for x in 1 2
 		do
-			if	OUT="$(dkms -m "$m" -v "$v" -k "$k" "$@" 2>&1)"
+			if	OUT="$(dkms --verbose -m "$m" -v "$v" -k "$k" "$@" 2>&1)"
 				RC=$?
 				[ 0 = "$RC" ]
 			then
@@ -111,7 +111,7 @@ do
 			(1:*'Please install'*' linux-headers-'*)
 				PACK="${OUT#* linux-headers-}"
 				PACK="${PACK%% *}"
-				apt-get install "linux-headers-$PACK" && continue
+				apt-get install "linux-headers-$PACK" && printf '\nnow building %q %q %q\n' "$m" "$v" "$k" && continue
 				;;
 			esac
 			ERRS="$ERRS$S"
