@@ -1,3 +1,6 @@
-[submodule "more/haproxy-lua-cors"]
+[submodule "others/haproxy-lua-cors"]
 	path = others/haproxy-lua-cors
 	url = https://github.com/haproxytech/haproxy-lua-cors.git
+[submodule "others/microsoft-secureboot-objects"]
+	path = others/microsoft-secureboot-objects
+	url = https://github.com/microsoft/secureboot_objects.git
