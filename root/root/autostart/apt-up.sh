@@ -17,9 +17,9 @@ do
 	('1 dist')	x /root/.apt && x /usr/bin/apt dist-upgrade && x /root/.apt;;		# dist update
 	([2-9]' ping')	printf -vT '%(%s)T' -2 && stamp PONG "$T" "${cmd[@]:1}";;		# ping XXX
 	('1 reexec')	exec "$0";;								# reexec script
+	('1 restart')	/usr/sbin/needrestart -v -ma;;						# run needrestart
 	('1 safe')	x /root/.apt && x /usr/bin/aptitude safe-upgrade && x /root/.apt;;	# aptitude safe-upgrade
 	('1 up')	x /root/.apt && x /root/.apt;;						# normal update
-	('1 restart')	/usr/sbin/needrestart -v -ma;;						# run needrestart
 	(*)		stamp try help: unknown command: "$cmd"; false; continue;;
 	esac;
 	stamp 'done';
