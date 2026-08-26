@@ -16,10 +16,12 @@ do
 	('1 help')	sed -n "s/^\\t([^ ]* \\([^']*\\)')[^$X]*/\\1\t/p" "$0";;		# show help
 	('1 dist')	x /root/.apt && x /usr/bin/apt dist-upgrade && x /root/.apt;;		# dist update
 	([2-9]' echo')	printf -vT '%(%s)T' -2 && stamp PONG "$T" "${cmd[@]:1}";;		# echo XXX
+	('1 full')	x /root/.apt && x /usr/bin/apt full-upgrade && x /root/.apt;;		# full update
 	('1 os')	cat /etc/os-release;;							# print os-release
 	('1 reexec')	exec "$0";;								# reexec script
 	('1 restart')	/usr/sbin/needrestart -v -ma;;						# run needrestart
 	('1 safe')	x /root/.apt && x /usr/bin/aptitude safe-upgrade && x /root/.apt;;	# aptitude safe-upgrade
+	('1 status')	/usr/bin/apt update;;							# show status
 	('1 up')	x /root/.apt && x /root/.apt;;						# normal update
 	(*)		stamp try help: unknown command: "$cmd"; false; continue;;
 	esac;
