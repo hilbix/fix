@@ -1,5 +1,8 @@
 #!/bin/bash
 
+ARGS=()
+[ -d /mnt/wslg ] && ARGS+=(-selection clipboard)
+
 [ 0 = $# ] && set -- catter
 
 catter()
@@ -16,7 +19,7 @@ while   ! keypressed 500
 do
 	let draw++
 	printf '\r%q%d%c' "$ret" "$cnt" "${show:$[draw%4]:1}" >&2
-	get="$(timeout 10 xclip -out 2>&1)"
+	get="$(timeout 10 xclip "${ARGS[@]}" -out 2>&1)"
 	ok=$?
 	[ ".$get" = ".$last" ] && continue
 	last="$get"
