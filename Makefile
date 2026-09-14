@@ -23,3 +23,12 @@ root:
 	systemctl restart systemd-journald systemd-logind
 	systemctl daemon-reload
 
+EFIVARS=/sys/firmware/efi/efivars/db-* /sys/firmware/efi/efivars/KEK-*
+secureboot: root
+	chattr -V -i $(EFIVARS)
+	ls -al $(EFIVARS)
+	sbkeysync --verbose
+	chattr -V +i $(EFIVARS)
+	mokutil --db | grep Subject:
+	mokutil --kek | grep Subject:
+
