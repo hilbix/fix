@@ -35,19 +35,11 @@ IPS="$(getent hosts "$DEV.checks." | awk '{ print $1 }' | tr \\n ' ')"
 [ -d "$BUS/net/$DEV" ] || printf '\n!WARNING! %q not found\n' "$DEV"
 echo on > "$BUS/power/control" || printf "\n!WARNING! %q not found\n" "$BUS"
 
-while	printf '%(%Y%m%d-%H%M%S)T %q %s ' -1 "$DEV" "$IPS"
-do
-	while	read -t20 && printf '%(%Y%m%d-%H%M%S)T EOF' && exit 2
-		fping -qx1 $IPS >/dev/null
-	do
-		printf . || exit
-	done
-
+fix()
+{
 	printf '\n%(%Y%m%d-%H%M%S)T '
-#	printf ' %q' $IPS; printf '\n'
+	ethtool $DEV
 
-#	set -x
-	#/sys/class/net/$DEV/power/control
 	echo 1 > "$BUS/remove"
 	sleep 1
 	echo 1 > /sys/bus/pci/rescan
@@ -57,17 +49,40 @@ do
 	ifup $DEV
 	sleep 1
 	ethtool -r $DEV
+
+# The fix?
+	ethtool --set-eee eno1 eee off
 	ethtool $DEV
-	set +x
+
+	#ethtool -s eno1 speed 1000 duplex full autoneg on
 
 	for a in ${ASS["$DEV"]}
 	do
+		set -x
 		ifdown "$a"
 		sleep 1
 		ifup "$a"
+		set +x
+	done
+	
+	sleep 10
+}
+
+
+[ -z "$1" ] || fix
+[ -z "$1" ] || ethtool $DEV
+[ -z "$1" ] || exit
+
+while	ethtool $DEV
+	printf '%(%Y%m%d-%H%M%S)T %q %s ' -1 "$DEV" "$IPS"
+do
+	while	read -t20 && printf '%(%Y%m%d-%H%M%S)T EOF\n\n' && exit 2
+		fping -qx1 $IPS >/dev/null
+	do
+		printf . || exit
 	done
 
-	sleep 1
-	ethtool $DEV
+#	set -x
+	fix
 done
 
