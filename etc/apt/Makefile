@@ -11,6 +11,6 @@ love:	keyrings/microsoft.gpg
 
 # apt install distribution-gpg-keys
 # see also misc/keyrings.sh
-keyrings/microsoft.gpg:	 /usr/share/distribution-gpg-keys/microsoft/microsoft.gpg 
+keyrings/microsoft.gpg:	 /usr/share/distribution-gpg-keys/microsoft/microsoft.asc
 	gpg --dearmor -o '$@' '$<'
 
