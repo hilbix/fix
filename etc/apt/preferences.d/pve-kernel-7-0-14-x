@@ -1,0 +1,17 @@
+// Recently the kernel updates had massive regressions.
+// Hence I rather avoid those.
+// According to AI this misses some fixes for Proxmox running on arm64
+// but everything should be stable on 8.0.14-19 for amd64
+
+Package: proxmox-kernel-7.0
+Pin: version 7.0.14-20
+Pin-Priority: -1
+
+Package: proxmox-kernel-7.0
+Pin: version 7.0.14-21
+Pin-Priority: -1
+
+Package: proxmox-kernel-7.0
+Pin: version 7.0.14-22
+Pin-Priority: -1
+
