@@ -15,11 +15,11 @@
 # systemctl restart systemd-timesyncd
 
 journalctl -o json "$@" |
-jq -r '"\((.__MONOTONIC_TIMESTAMP | tonumber) / 1000 | tostring)\t\(.__REALTIME_TIMESTAMP | tonumber / 1000 | tostring)\t\(.__REALTIME_TIMESTAMP | tonumber / 1000000 | strflocaltime("%Y-%m-%d %H:%M:%S")) \(.MESSAGE)"' |
+jq -r '"\((.__MONOTONIC_TIMESTAMP | tonumber) / 1000 | tostring)\t\(.__REALTIME_TIMESTAMP | tonumber / 1000 | tostring)\t\(.__REALTIME_TIMESTAMP | tonumber / 1000000 | strflocaltime("%Y-%m-%d %H:%M:%S")) \(.MESSAGE | @json)"' |
 awk -F$'\t' '
-#NR==1	{ last=$1; time=$2 }
+$1<last	{ last=0 }
 	{ d=$2-time-$1+last; a=d<0 ? -d : d }
 a>=1	{ printf("%15s\t%s\n", sprintf("%c%d.%03d", d<0 ? "-" : "+", a/1000, a%1000), $3) }
-	{ last=$1; time=$2 }
+	{ last=$1; time=$2; prev=$0 }
 '
 
