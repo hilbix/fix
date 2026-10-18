@@ -1,8 +1,10 @@
-// Recently the kernel updates had massive regressions.
-// Hence I rather avoid those.
-// According to AI this misses some fixes for Proxmox running on arm64
-// but everything should be stable on 8.0.14-19 for amd64
-
+Explanation: Recently the kernel updates had massive regressions.
+Explanation: Hence I rather avoid those.
+Explanation: According to AI this misses some fixes for Proxmox running on arm64
+Explanation: but everything should be stable on 8.0.14-19 for amd64
+Explanation:
+Explanation: See also:
+Explanation:	apt-mark hold proxmox-kernel-7.0
 Package: proxmox-kernel-7.0
 Pin: version 7.0.14-20
 Pin-Priority: -1
@@ -13,5 +15,13 @@ Pin-Priority: -1
 
 Package: proxmox-kernel-7.0
 Pin: version 7.0.14-22
+Pin-Priority: -1
+
+Package: proxmox-kernel-7.0
+Pin: version 7.0.14-23
+Pin-Priority: -1
+
+Package: proxmox-kernel-7.0
+Pin: version 7.0.14-24
 Pin-Priority: -1
 
