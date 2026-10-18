@@ -37,7 +37,7 @@ My way to create a backup of `/boot/`
 > Note that `.x` stands for `exec` and means for me: "Just do what is to be done in this directory."
 
 
-### `misc/`
+### `tool/`
 
 - `disable-packagekit.sh` masks `packagekit.service`.  This is not needed and occupies small machines in unbearable ways.
 - `gnome-no-media-automount.sh` disables automounting of media in `gnome` setups.
@@ -45,6 +45,15 @@ My way to create a backup of `/boot/`
   - Note that this is exactly what these type of devices shall do:  Destroy itself if somebody tries to access them the wrong way.
 - `ubuntu-nopic-black.sh` create a clean black desktop to safe power on OLED screens as it ought to be
   - Max. energy saving should always be the default, right?
+- `rocky-horror.sh` find out timewarps in SystemD logs
+  - Shows log entries, where the monotonic system timer disagree with the timestamp between the log entry before (more than 1ms)
+  - SystemD keeps a timestamp and the monotonic system timer in the logs
+  - When the clock is adjusted (by systemd-timesyncd or others) the logs do not show the offset
+  - But after a time adjustment the monotonic system timer and the timestamp disagree in the offset
+- `keyrings.sh` this is a tool to extract all GPG keys from all debian packages
+  - just a silly rough start to get some overview over all the cryptographic keys known to some Debian package
+  - It is a shame that there is no easy way to lookup all keys, which are regarded valid by some Debian Maintainer
+  - Having keys in a trusted OS usually means, that these keys cannot be faked as easily (like pwning a web page)
 
 
 ### `etc/`
