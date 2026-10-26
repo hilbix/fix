@@ -7,7 +7,12 @@ ARGS=()
 
 catter()
 {
-  printf '%q\n' "$@" || exit
+  if	read x <<<"$*" && [ ".$x" = ".$*" ]
+  then
+	printf '%s\n' "$@"
+  else
+	printf '%q\n' "$@"
+  fi || exit
 }
 
 show='|/-\'
@@ -15,7 +20,7 @@ cnt=0
 draw=0
 
 last=
-while   ! keypressed 500
+while   ! read -N1 -t0.5
 do
 	let draw++
 	printf '\r%q%d%c' "$ret" "$cnt" "${show:$[draw%4]:1}" >&2
