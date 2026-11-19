@@ -82,7 +82,8 @@ ERRS=''
 # https://askubuntu.com/q/53364/164798
 fix-dkms()
 {
-KERN=(`dpkg -S '/boot/vmlinu*' | sed -n 's!^.*:.*vmlinu[^-]*-!!p'`)
+#KERN=(`dpkg -S '/boot/vmlinu*' | sed -n 's!^.*:.*vmlinu[^-]*-!!p'`)	No more works for 7.2.x
+KERN=(`dpkg --get-selections | sed -n 's/^linux-image-\([0-9][^[:space:]]*\)[[:space:]]*install$/\1/p'`);
 LOAD="$(uname -r)"
 
 cd /
@@ -98,7 +99,7 @@ do
 		printf '\n##### %q %q %q #####\n\n' "$m" "$v" "$k"
 		for x in 1 2
 		do
-			if	OUT="$(dkms --verbose -m "$m" -v "$v" -k "$k" "$@" 2>&1)"
+			if	OUT="$(set -x; dkms --verbose -m "$m" -v "$v" -k "$k" "$@" 2>&1)"
 				RC=$?
 				[ 0 = "$RC" ]
 			then
